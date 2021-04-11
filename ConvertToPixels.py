@@ -72,11 +72,8 @@ class ConvertToPixels:
         j = p[1] // 2; back = p[1] % 2
         Ymed = self.YmedF[j]
         if(back == 1):
-            Ymed = YmedB[j]
-        if(j < 3):
-            Y = Ymed + self.YSize - p[3]*self.PixelSize[1]
-        else:
-            Y = Ymed - self.YSize + p[3]*self.PixelSize[1]
+            Ymed = self.YmedB[j]
+        Y = Ymed - self.YSize + p[3]*self.PixelSize[1]
         return [X,Y]
     
     def set_CS_multi(self,ps): # ps is [pX,pY,Edep]
