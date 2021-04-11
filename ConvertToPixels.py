@@ -90,6 +90,9 @@ class ConvertToPixels:
         Y = Ymed - self.YSize + p[3]*self.PixelSize[1]
         return [X,Y]
     
+    def get_CS(self,Edeps): # ps is [pX,pY,Edep]
+        return [int(np.floor(4.2267 * (Edep*40.)**0.65 + 0.5)) for Edep in Edeps]
+        
     def set_CS_multi(self,ps): # ps is [pX,pY,Edep]
         df = pd.DataFrame(columns=['iX','iY'],dtype=int)
         for p in ps:
