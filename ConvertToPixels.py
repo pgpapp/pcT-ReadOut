@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+import uproot
+
 class ConvertToPixels:
     ChipSize = np.array([30., 15.]) # ALPIDE is a 30 mm x 15 mm chip
     PixelSize = np.array([0.02924,0.02688]) # pixelsize on ALPIDE
@@ -33,12 +37,20 @@ class ConvertToPixels:
     circleY = [0,0,-1,0,1,-1,-1,1,1,-2,0,2,0,-2,-1,2,1,-2,1,2,-1,-2,2,2,-2,-3,0,3,0,-3,1,3,-1,-3,-1,3,1,-4,0,4,0,-3,-2,3,2,15,-3,2,3,-1,-4,1,4,1,-4,-18,4,3,-3,-3,3,2,-4,-2,4,-2,-4,4,0,5];
     binPosLUT = [1,2,4,8,16,32,64,128,256,512,1024,2048,4096]
 
-    def __init__(self):
+    def __init__(self,CDIR):
         self.Xmed = np.linspace(-4.*(self.ChipSize[0]+self.Xgap),4.*(self.ChipSize[0]+self.Xgap),9)
         self.YmedF = np.array((-83.15+self.padY-83.15+self.ChipSize[1]-self.ElectrY)/2+np.arange(6)*27.4)
         self.YmedF[3:] += 2*self.Yshift+self.Ydif
         self.YmedB = self.YmedF + 27.4/2
         self.PosZ = np.concatenate([[225.219,225.219+52.4],333.369+5.5*np.arange(0.,48.,1.)])  # Z position of Layers
+        
+        file = uproot.open(CDIR+f'\\database_final_reduced.root')
+        tree = file[file.keys()[0]]
+        self.CSconfigs = pd.DataFrame(tree.arrays(library='np', how=tuple)).transpose()
+        self.CSconfigs.columns =tree.keys()
+        file.close()
+        self.CSindex = pd.read_csv(CDIR+f'\\sortIndex.csv',sep=' ',header=0,names=['cs','start'])
+
     
     def get_Pos(self,X,Y,Edep):
         res = np.empty((2,4),dtype=int); res.fill(-1)
@@ -83,10 +95,10 @@ class ConvertToPixels:
             if(CS < 2): # cluster sizes less than 1 are under threshold
                 continue
             if(CS < 27):  # use library for shapes
-                id = np.random.randint(CSindex['start'][CS-1],CSindex['start'][CS])
-                x_mean = CSconfigs['x_mean'][id]
-                y_mean = CSconfigs['y_mean'][id]
-                CSarray = CSconfigs['hit_array'][id]
+                id = np.random.randint(self.CSindex['start'][CS-1],self.CSindex['start'][CS])
+                x_mean = self.CSconfigs['x_mean'][id]
+                y_mean = self.CSconfigs['y_mean'][id]
+                CSarray = self.CSconfigs['hit_array'][id]
                 for i in range(10):              
                     for j in range(10):
                         if(CSarray[i] & binPosLUT[j]):
