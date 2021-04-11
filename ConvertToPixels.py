@@ -82,8 +82,8 @@ class ConvertToPixels:
         return df
 
     def get_Coords(self,p):
-        X = p[2]*self.PixelSize[0] + self.Xmed[p[0]] - self.ChipX[1]
-        j = p[1] // 2; back = p[1] % 2
+        X = p[2]*self.PixelSize[0] + self.Xmed[int(p[0])] - self.ChipX[1]
+        j = int(p[1] // 2); back = int(p[1] % 2)
         Ymed = self.YmedF[j]
         if(back == 1):
             Ymed = self.YmedB[j]
@@ -106,7 +106,7 @@ class ConvertToPixels:
                 CSarray = self.CSconfigs['hit_array'][id]
                 for i in range(10):              
                     for j in range(10):
-                        if(CSarray[i] & binPosLUT[j]):
+                        if(CSarray[i] & self.binPosLUT[j]):
                             outX = np.floor(p[0] + int(np.floor(i-x_mean+0.5)))
                             outY = np.floor(p[1] + int(np.floor(j-y_mean+0.5)))
                             if(outX >= self.Xmin and outX <= self.Xmax and outY >= self.Ymin and outY <= self.Ymax):
