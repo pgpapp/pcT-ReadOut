@@ -50,6 +50,8 @@ class ConvertToPixels:
         self.CSconfigs.columns =tree.keys()
         file.close()
         self.CSindex = pd.read_csv(CDIR+f'\\sortIndex.csv',sep=' ',header=0,names=['cs','start'])
+        
+        self.tol = 0.001 # tolerance of positioning layer to posZ
 
     
     def get_Pos(self,X,Y,Edep):
@@ -116,7 +118,7 @@ class ConvertToPixels:
         return df
     
     def get_Layer(self,Zs):
-        return [np.sum(z > self.PosZ)-1 for z in Zs]
+        return [np.sum(z > self.PosZ - self.tol)-1 for z in Zs]
     
     def get_Layer_Pos(self):  # return the Z positions of Layers
         return self.PosZ
