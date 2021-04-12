@@ -29,10 +29,11 @@ class ConvertToPixels:
     Ymax = 511
     
     Xmed = np.zeros(9) # middle of chip X positions, 9 chips 
-    YmedF = np.zeros(6)
-    YmedB = np.zeros(6)
+    YmedF = np.zeros(6) # middle of "front" Y positions: 6 chips
+    YmedB = np.zeros(6) # middle of "back" Y positions: 6 chips
 
     # cluster parameters (circleX, circleY Short_t circleX/Y[70])
+    # See Helge's https://github.com/HelgeEgil/DigitalTrackingCalorimeterToolkit repo and Thesis
     circleX = [0,1,0,-1,0,1,-1,-1,1,0,-2,0,2,1,-2,-1,2,-1,-2,1,2,-2,-2,2,2,0,-3,0,3,-1,-3,1,3,1,-3,-1,3,0,-4,0,4,2,-3,-2,3,-8,-2,-3,2,4,-1,-4,1,4,1,7,-1,3,3,-3,-3,4,2,-4,-2,4,-2,2,5,0];
     circleY = [0,0,-1,0,1,-1,-1,1,1,-2,0,2,0,-2,-1,2,1,-2,1,2,-1,-2,2,2,-2,-3,0,3,0,-3,1,3,-1,-3,-1,3,1,-4,0,4,0,-3,-2,3,2,15,-3,2,3,-1,-4,1,4,1,-4,-18,4,3,-3,-3,3,2,-4,-2,4,-2,-4,4,0,5];
     binPosLUT = [1,2,4,8,16,32,64,128,256,512,1024,2048,4096]
@@ -99,7 +100,7 @@ class ConvertToPixels:
             CS = np.floor(4.2267 * (p[2]*40.)**0.65 + 0.5)
             if(CS < 2): # cluster sizes less than 1 are under threshold
                 continue
-            if(CS < 27):  # use library for shapes
+            if(CS < 26):  # use library for shapes. THIS WAS 27 in Helges's code, however CSindex[26] == CSindex[25] ?!
                 id = np.random.randint(self.CSindex['start'][CS-1],self.CSindex['start'][CS])
                 x_mean = self.CSconfigs['x_mean'][id]
                 y_mean = self.CSconfigs['y_mean'][id]
