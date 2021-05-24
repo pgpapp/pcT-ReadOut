@@ -1,3 +1,6 @@
+# The research was supported by the Ministry of Innovation and Technology NRDI Office within the framework of the MILAB Artificial Intelligence National Laboratory Program.
+
+
 import numpy as np
 import pandas as pd
 import uproot
@@ -9,10 +12,10 @@ class ConvertToPixels:
     padX = 0.02912 # X padding: 29.12 micron
     Xgap = 0.1 # gap between ALPIDEs in X direction
 
-    padY = 0.02944 # Y padding: 29.44 micron
+    padY = 0.02944 # Y padding: 29.44 micron on the opposite to eletronics end
     Ygap = 27.4 # distance between stripes in Y direction: 27.4 mm
-    overY = 0.092 # overlap between F/B: 0.092 mm
-    ElectrY = 1.208 # electronics part on the chip 1.208 mm
+    overY = 0.092 # overlap between F/B: 0.092 mm on both ends
+    ElectrY = 1.208 # electronics part on the chip 1.208 mm (only one side, no padding here)
     Yshift = 0.85 # in Y direction the first chip starts at 0.85 mm (positive half)
     Ydif = 0.1 # for the negative half plane the first chip starts at 0.95 mm = 0.85 + Ydif
     
