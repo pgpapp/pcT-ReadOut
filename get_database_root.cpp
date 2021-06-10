@@ -51,9 +51,10 @@ class ConvertToPixels {
     std::array<float,6> YLowB = {{0.f}};// middle of "back" Y positions: 6 chips
 
     // cluster parameters (circleX, circleY Short_t circleX/Y[70])
-    // See Helge's https://github.com/HelgeEgil/DigitalTrackingCalorimeterToolkit repo and Thesis
-    std::array<int,70> circleX = {{0,1,0,-1,0,1,-1,-1,1,0,-2,0,2,1,-2,-1,2,-1,-2,1,2,-2,-2,2,2,0,-3,0,3,-1,-3,1,3,1,-3,-1,3,0,-4,0,4,2,-3,-2,3,-8,-2,-3,2,4,-1,-4,1,4,1,7,-1,3,3,-3,-3,4,2,-4,-2,4,-2,2,5,0}};
-    std::array<int,70> circleY = {{0,0,-1,0,1,-1,-1,1,1,-2,0,2,0,-2,-1,2,1,-2,1,2,-1,-2,2,2,-2,-3,0,3,0,-3,1,3,-1,-3,-1,3,1,-4,0,4,0,-3,-2,3,2,15,-3,2,3,-1,-4,1,4,1,-4,-18,4,3,-3,-3,3,2,-4,-2,4,-2,-4,4,0,5}};
+    // See Helge's https://github.com/HelgeEgil/DigitalTrackingCalorimeterToolkit repo and Thesis  (HelperFunctions/getTracks.C
+	// circle[45] and [55] is corrected now (was (-8,15) and (7,-18)
+    std::array<int,70> circleX = {{0,1,0,-1,0,1,-1,-1,1,0,-2,0,2,1,-2,-1,2,-1,-2,1,2,-2,-2,2,2,0,-3,0,3,-1,-3,1,3,1,-3,-1,3,0,-4,0,4,2,-3,-2,3,-4,-2,-3,2,4,-1,-4,1,4,1,3,-1,3,3,-3,-3,4,2,-4,-2,4,-2,2,5,0}};
+    std::array<int,70> circleY = {{0,0,-1,0,1,-1,-1,1,1,-2,0,2,0,-2,-1,2,1,-2,1,2,-1,-2,2,2,-2,-3,0,3,0,-3,1,3,-1,-3,-1,3,1,-4,0,4,0,-3,-2,3,2,-1,-3,2,3,-1,-4,1,4,1,-4,-2,4,3,-3,-3,3,2,-4,-2,4,-2,-4,4,0,5}};
     std::array<int,13> binPosLUT = {{1,2,4,8,16,32,64,128,256,512,1024,2048,4096}};
 
     std::array<float,50> PosZ = {{0.f}};
