@@ -155,7 +155,7 @@ class ConvertToPixels {
                         if( CSconfigs[id].bits[i] & binPosLUT[j]) {
                             int iX = floor(pX + i - x_mean + 0.5);
                             int iY = floor(pY + j - y_mean + 0.5);
-                            if(iX >= Xmin && iX <= Xmax && iY >= Ymin && iY <= Xmax) {
+                            if(iX >= Xmin && iX <= Xmax && iY >= Ymin && iY <= Ymax) {
                                 res.push_back(std::make_pair(iX,iY));
                             }
                        }
@@ -168,7 +168,7 @@ class ConvertToPixels {
             for (int i=0; i< CS; i++) {
                 int iX = floor(pX + circleX[i] + 0.5f);
                 int iY = floor(pY + circleY[i] + 0.5f);
-                if(iX >= Xmin && iX <= Xmax && iY >= Ymin && iY <= Xmax) {
+                if(iX >= Xmin && iX <= Xmax && iY >= Ymin && iY <= Ymax) {
                     res.push_back(std::make_pair(iX,iY));
                 }
 
