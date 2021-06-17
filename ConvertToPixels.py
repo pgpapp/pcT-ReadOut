@@ -108,8 +108,8 @@ class ConvertToPixels:
                 continue
             if(CS < 26):  # use library for shapes. THIS WAS 27 in Helges's code, however CSindex[26] == CSindex[25] ?!
                 id = np.random.randint(self.CSindex['start'][CS-1],self.CSindex['start'][CS])
-                x_mean = self.CSconfigs['x_mean'][id]
-                y_mean = self.CSconfigs['y_mean'][id]
+                x_mean = self.CSconfigs['y_mean'][id]  # For some reason x_mean and y_mean is interchanged in the database
+                y_mean = self.CSconfigs['x_mean'][id]
                 CSarray = self.CSconfigs['hit_array'][id]
                 for i in range(10):              
                     for j in range(10):
