@@ -88,8 +88,8 @@ class ConvertToPixels {
 			TFile        * CDB_fCluster; 
 			CDB_fCluster = new TFile("C:/Users/Gábor/OneDrive - elte.hu/Documents/Research/pcT/ReadOut/Data/Cluster/database_final_reduced.root", "READ");
 			TTreeReader reader("database", CDB_fCluster);
-			TTreeReaderValue<float> x_mean(reader, "x_mean");
-			TTreeReaderValue<float> y_mean(reader, "y_mean");
+			TTreeReaderValue<float> x_mean(reader, "y_mean");  // For some reason x_mean and y_mean is interchanged in the database
+			TTreeReaderValue<float> y_mean(reader, "x_mean");
 			TTreeReaderValue<Int_t> size(reader, "size");
 			TTreeReaderArray<uint8_t> hits(reader, "hit_array");
 
